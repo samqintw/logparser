@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/samqintw/logparser/pkg/client"
+	"os"
 	"strings"
 )
 
@@ -29,17 +31,17 @@ func main()  {
 		fmt.Println(`wrong mail address format, --mail_addr="mail01,mail02"`)
 		return
 	}
-	fmt.Println(receivers)
-	//if fi, err := os.Stat(file); !os.IsNotExist(err) && !fi.IsDir() {
-	//	fmt.Println(ip, port, file)
-	//	c := client.CreateClient(fmt.Sprintf("%v:%v", ip, port))
-	//	defer c.Close()
-	//	reply := client.SendLog(c, file, receivers)
-	//	fmt.Println(reply.Message)
-	//} else {
-	//	flag.Usage()
-	//	fmt.Println(`ex: client --ip="" --port="" --file="" --mail_addr=""`)
-	//	fmt.Println(os.IsNotExist(err))
-	//	fmt.Println(fi.IsDir())
-	//}
+
+	if fi, err := os.Stat(file); !os.IsNotExist(err) && !fi.IsDir() {
+		fmt.Println(ip, port, file)
+		c := client.CreateClient(fmt.Sprintf("%v:%v", ip, port))
+		defer c.Close()
+		reply := client.SendLog(c, file, receivers)
+		fmt.Println(reply.Message)
+	} else {
+		flag.Usage()
+		fmt.Println(`ex: client --ip="" --port="" --file="" --mail_addr=""`)
+		fmt.Println(os.IsNotExist(err))
+		fmt.Println(fi.IsDir())
+	}
 }

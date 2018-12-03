@@ -2,6 +2,7 @@ package contract
 
 type HealthCheckRequest struct {
 	Name string
+	MailAddress []string
 	Log []byte
 }
 

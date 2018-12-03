@@ -17,14 +17,14 @@ func CreateClient(address string) *rpc.Client {
 	return client
 }
 
-func SendLog(c *rpc.Client, file string) contract.HealthCheckResponse {
+func SendLog(c *rpc.Client, file string, mailAddr []string) contract.HealthCheckResponse {
 	path, _  := filepath.Abs(file)
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		log.Fatal("error:", err)
 	}
 
-	args := &contract.HealthCheckRequest{Name: "World", Log: data}
+	args := &contract.HealthCheckRequest{Name: "World", Log: data, MailAddress: mailAddr}
 	var reply contract.HealthCheckResponse
 	err = c.Call("ParserLog.Exec", args, &reply)
 

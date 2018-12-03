@@ -31,8 +31,13 @@ func (h *ParserLog) Exec(args *contract.HealthCheckRequest, reply *contract.Heal
 			log.Println("File didn't be saved", os.IsNotExist(err), fi.IsDir(), fi.Mode())
 		}
 	}
-
-	mail := utils.Mail{Receivers: []string{"somin_chin@asus.com"}, Subject: "Health Checks", Text: "Health Checks"}
+	var receivers []string
+	if len(args.MailAddress) > 0 {
+		receivers = args.MailAddress
+	} else {
+		receivers = []string{"somin_chin@asus.com"}
+	}
+	mail := utils.Mail{Receivers: receivers, Subject: "Health Checks", Text: "Health Checks"}
 	reply.Message = utils.SendMail(mail)
 	return nil
 }

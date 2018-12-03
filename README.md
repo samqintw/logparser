@@ -6,3 +6,5 @@
 
     go build ./cli/client
     CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ./cli/client
+
+    go run ./cli/client/main.go -file="./testlog" -mail_addr="somin_chin@asus.com"

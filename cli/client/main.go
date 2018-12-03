@@ -20,7 +20,7 @@ const PORT = "2148"
 func main()  {
 	var ip, port, file, mailAddrs string
 	flag.StringVar(&ip, "ip", IP, "ip of the log parser service")
-	flag.StringVar(&port, "addr", PORT, "port of the log parser service")
+	flag.StringVar(&port, "port", PORT, "port of the log parser service")
 	flag.StringVar(&file, "file", "", "attachment")
 	flag.StringVar(&mailAddrs, "mail_addr", "", "mail addresses, ex: mail01,mail01 ...")
 	flag.Parse()

@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net"
-	"net/http"
 	"net/rpc"
 	"os"
 	"time"
@@ -45,14 +44,22 @@ func (h *ParserLog) Exec(args *contract.HealthCheckRequest, reply *contract.Heal
 func StartServer(port string) {
 	parserLog := &ParserLog{}
 	rpc.Register(parserLog)
-	rpc.HandleHTTP()
 
 	l, err := net.Listen("tcp", fmt.Sprintf(":%v", port))
 	if err != nil {
 		log.Fatal(fmt.Sprintf("Unable to listen on given port: %s", err))
 	}
-
+	defer l.Close()
 	log.Printf("Server starting on port %v\n", port)
 
-	http.Serve(l, nil)
+	for {
+		conn, err := l.Accept()
+		log.Println("Accepted connection: ", conn.RemoteAddr().String())
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+		log.Println("go ServeConn")
+		go rpc.ServeConn(conn)
+	}
 }

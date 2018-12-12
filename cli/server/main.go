@@ -11,6 +11,6 @@ var (
 	port = flag.String("addr", PORT, "endpoint of the log parser service")
 )
 
-func main()  {
+func main() {
 	server.StartServer(*port)
 }

@@ -1,6 +1,6 @@
     docker build -t samqintw/logparser:latest .
 
-    docker stop logparser; docker rm logparser
+    sudo docker stop logparser; sudo docker rm logparser
     docker run -d -p 2148:2148 --name logparser samqintw/logparser
     docker run -d -v /Users/somin_chin/Documents/log:/log -e "LOG_PATH=/log" -p 2148:2148 --name logparser samqintw/logparser
 

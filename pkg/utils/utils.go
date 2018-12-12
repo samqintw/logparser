@@ -18,7 +18,7 @@ func InCluster() bool {
 }
 
 const EmailServerInCluster = "http://mail-sender.monitoring.svc:8803/mails/v1"
-const EmailServer = "http://10.78.26.20:30883/mails/v1"
+const EmailServer = "http://10.78.26.19:30883/mails/v1"
 
 type Mail struct {
 	Receivers []string `json:"receivers"`
